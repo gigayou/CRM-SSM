@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.giga.crm.dao.BaseDictMapper" >
+  <resultMap id="BaseResultMap" type="com.giga.crm.model.BaseDict" >
+    <constructor >
+      <idArg column="dict_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dict_type_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dict_type_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dict_item_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dict_item_code" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="dict_sort" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="dict_enable" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="dict_memo" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dict_id, dict_type_code, dict_type_name, dict_item_name, dict_item_code, dict_sort, 
+    dict_enable, dict_memo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_dict
+    where dict_id = #{dict_id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from base_dict
+    where dict_id = #{dict_id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.giga.crm.model.BaseDict" >
+    insert into base_dict (dict_id, dict_type_code, dict_type_name, 
+      dict_item_name, dict_item_code, dict_sort, 
+      dict_enable, dict_memo)
+    values (#{dict_id,jdbcType=VARCHAR}, #{dict_type_code,jdbcType=VARCHAR}, #{dict_type_name,jdbcType=VARCHAR}, 
+      #{dict_item_name,jdbcType=VARCHAR}, #{dict_item_code,jdbcType=VARCHAR}, #{dict_sort,jdbcType=INTEGER}, 
+      #{dict_enable,jdbcType=CHAR}, #{dict_memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.giga.crm.model.BaseDict" >
+    insert into base_dict
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dict_id != null" >
+        dict_id,
+      </if>
+      <if test="dict_type_code != null" >
+        dict_type_code,
+      </if>
+      <if test="dict_type_name != null" >
+        dict_type_name,
+      </if>
+      <if test="dict_item_name != null" >
+        dict_item_name,
+      </if>
+      <if test="dict_item_code != null" >
+        dict_item_code,
+      </if>
+      <if test="dict_sort != null" >
+        dict_sort,
+      </if>
+      <if test="dict_enable != null" >
+        dict_enable,
+      </if>
+      <if test="dict_memo != null" >
+        dict_memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dict_id != null" >
+        #{dict_id,jdbcType=VARCHAR},
+      </if>
+      <if test="dict_type_code != null" >
+        #{dict_type_code,jdbcType=VARCHAR},
+      </if>
+      <if test="dict_type_name != null" >
+        #{dict_type_name,jdbcType=VARCHAR},
+      </if>
+      <if test="dict_item_name != null" >
+        #{dict_item_name,jdbcType=VARCHAR},
+      </if>
+      <if test="dict_item_code != null" >
+        #{dict_item_code,jdbcType=VARCHAR},
+      </if>
+      <if test="dict_sort != null" >
+        #{dict_sort,jdbcType=INTEGER},
+      </if>
+      <if test="dict_enable != null" >
+        #{dict_enable,jdbcType=CHAR},
+      </if>
+      <if test="dict_memo != null" >
+        #{dict_memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.giga.crm.model.BaseDict" >
+    update base_dict
+    <set >
+      <if test="dict_type_code != null" >
+        dict_type_code = #{dict_type_code,jdbcType=VARCHAR},
+      </if>
+      <if test="dict_type_name != null" >
+        dict_type_name = #{dict_type_name,jdbcType=VARCHAR},
+      </if>
+      <if test="dict_item_name != null" >
+        dict_item_name = #{dict_item_name,jdbcType=VARCHAR},
+      </if>
+      <if test="dict_item_code != null" >
+        dict_item_code = #{dict_item_code,jdbcType=VARCHAR},
+      </if>
+      <if test="dict_sort != null" >
+        dict_sort = #{dict_sort,jdbcType=INTEGER},
+      </if>
+      <if test="dict_enable != null" >
+        dict_enable = #{dict_enable,jdbcType=CHAR},
+      </if>
+      <if test="dict_memo != null" >
+        dict_memo = #{dict_memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dict_id = #{dict_id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.giga.crm.model.BaseDict" >
+    update base_dict
+    set dict_type_code = #{dict_type_code,jdbcType=VARCHAR},
+      dict_type_name = #{dict_type_name,jdbcType=VARCHAR},
+      dict_item_name = #{dict_item_name,jdbcType=VARCHAR},
+      dict_item_code = #{dict_item_code,jdbcType=VARCHAR},
+      dict_sort = #{dict_sort,jdbcType=INTEGER},
+      dict_enable = #{dict_enable,jdbcType=CHAR},
+      dict_memo = #{dict_memo,jdbcType=VARCHAR}
+    where dict_id = #{dict_id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectBaseDictByTypeCode" parameterType="string" resultType="BaseDict">
+    select * from `base_dict` where dict_type_code = #{dictTypeCode}
+  </select>
+</mapper>

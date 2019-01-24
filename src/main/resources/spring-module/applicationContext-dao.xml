@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- load jdbc.properties -->
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+
+	<!-- config datasource -->
+	<bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource">
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
+
+	<!-- config SqlSessionFactory -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- setting specified mybatis-config location -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<!-- locate mapper xml files -->
+		<property name="mapperLocations" value="classpath:mapper/*.xml"/>
+		<!-- assign datasource property -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- specified aliases package -->
+		<property name="typeAliasesPackage" value="com.giga.crm.model"/>
+	</bean>
+
+	<!-- mappers scanner -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.giga.crm.dao"/>
+	</bean>
+
+</beans>
